@@ -1,0 +1,16 @@
+h1{
+    text-align: center;
+}
+body{
+    background: rgb(0,255,250);
+    background: linear-gradient(300deg, rgba(0,255,250,0.928921568627451) 0%, rgba(136,251,46,1) 100%);
+}
+.row{
+    border: 2px solid black;
+    border-radius: 25px;
+    margin-top: 0.4rem;
+}
+
+.form-check-inpu{
+    background-color: transparent;
+}

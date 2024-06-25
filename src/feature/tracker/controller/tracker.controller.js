@@ -1,31 +1,67 @@
-import { registerNewTask } from "../model/tracker.repository.js";
+import { registerNewTask, getActivityByStatus } from "../model/tracker.repository.js";
 export const createNewTask = async (req, res,next) => {
   try{
-    console.log(req.body);
     const isTaskCreated = await registerNewTask(req.body)
     res.status(200).send({message:isTaskCreated})
   }catch(err){
+    if(err.code===11000){
+      res.status(500).send({message:"habbit already exists"})
+      return
+    }
     res.status(500).send({message:err.message})
   }
+  next()
 }
 
 export const getPage = async (req, res,next)=> {
   try{
-    res.render("template")
-    //res.render("error")
+    await res.status(200).render("template", {tasks:await getActivityByStatus("",req.data)})
   }catch(err){
-    //res.render("error")
-
+    res.render("error")
   }
 }
-export const getAllDoneActivities = async (req, res, next)=>{
+export const getAllActivities = async (req, res, next)=>{
   try{
-
+    const result = await getActivityByStatus(tasks,req.data)
+    return result
   }catch(err){
-
+    return err.message
+  }
+}
+export const getWeeklyTrackerPage = async (req, res, next)=>{
+  try{
+    const weeks = getWeekDates()
+    res.render("weeklytracker",{tasks:await getActivityByStatus("",req.data),weekData:weeks})
+  }catch(err){
+    res.render("error")
   }
 }
 
+
+function getWeekDates() {
+  const today = new Date();
+  const dayOfWeek = today.getDay(); // Sunday - Saturday : 0 - 6
+  const weekDates = [];
+
+  // Calculate the start of the week (Sunday)
+  const startOfWeek = new Date(today);
+  startOfWeek.setDate(today.getDate() - dayOfWeek);
+
+  // Populate the array with dates of the current week
+  for (let i = 0; i < 7; i++) {
+    const currentDate = new Date(startOfWeek);
+    currentDate.setDate(startOfWeek.getDate() + i);
+    weekDates.push({
+      day: currentDate.getDate(),
+      weekDay: currentDate.toLocaleDateString('en-US', { weekday: 'long' })
+    });
+  }
+
+  return {
+    month: today.toLocaleString('en-US', { month: 'long' }),
+    dates: weekDates
+  };
+}
 
 
 

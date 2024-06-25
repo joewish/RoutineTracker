@@ -3,15 +3,27 @@ import { HabitSchema } from "./tracker.schema.js";
 const taskModel = mongoose.model('Task',HabitSchema);
 
 export const registerNewTask = async(data)=>{
-  try{
   const tasks = new taskModel(data)
     return await tasks.save();
-  }catch(err){
-    return err
-  }
 }
-export const getActivityByStatus = async(data)=>{
+export const getActivityByStatus = async(taskStatus,data)=>{
+  if(taskStatus==""){
+    try{
+      const result  = await taskModel.find({})
+      return result
+    }catch(err){
+      return err
+    }
+  }
+  else{
+    try{
+      const result = await taskModel.find({name:data.name})
+      return 
+    }catch(err){
 
+    }
+  }
+  
 }
 // // Utility function to get the last 7 days
 // const getLast7Days = () => {

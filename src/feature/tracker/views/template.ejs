@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>TO-DO List</title>
+    <title>RoutineTracker</title>
     <link rel="stylesheet" href="styles/style.css" />
   </head>
   <body>
@@ -9,9 +9,11 @@
     <div id="todo-container">
       <!-- todo list header -->
       <div id="header">
-        <h1>To Do List</h1>
+        <h1>RoutineTracker</h1>
       </div>
-
+      <div>
+        <a href="/tracker/weeklytracker"><h1>weeklytracker</h1></a>
+      </div>
       <!-- create input box -->
       <div id="todo-form">
         <input
@@ -28,8 +30,24 @@
 
       <!-- task list -->
       <h2>Task List</h2>
-      <ul id="list-container"></ul>
-
+        <ul id="list-container">
+          <% if (tasks) { %>
+            <% tasks.forEach((task) => { %>
+              <li>
+                <label>
+                  <input type="checkbox">
+                  <span><%= task.name %></span>
+                </label>
+                <span class="edit-btn">Edit</span>
+                <span class="delete-btn">Delete</span>
+              </li>
+            <% }) %>
+          <% } else {%>
+            <li>
+              <span>there are no task! please add some Task</span>
+            </li>
+            <% } %>
+        </ul>
       <hr>
 
       <!-- task list counter  -->
