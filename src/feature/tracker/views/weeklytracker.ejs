@@ -21,7 +21,7 @@
             <% if(weekData) { %>
               <% weekData.dates.forEach((date) => { %>
                 <div class="col">
-                  <%= weekData.month + " " + date.day %>
+                  <%= date.month + " " + date.day %>
                   <div>
                     <% 
                       const isChecked = workDoneEntries.some(entry => {
@@ -30,10 +30,9 @@
                         entry.activityDetails.forEach(detail => {
                           taskName=detail.activityName;
                         });
-                      
+                        console.log(date.day)
                         return entryDate.getDate() === date.day &&
-                               entryDate.getMonth() === new Date(`${weekData.month} 1`).getMonth() && taskName===task.name
-                              
+                        entryDate.getMonth() === new Date(`${date.month} 1`).getMonth() && taskName===task.name
                       });
                     %>
                     <input 
@@ -42,7 +41,7 @@
                       id="checkboxNoLabel" 
                       value="" 
                       aria-label="..."
-                      data-month="<%= weekData.month %>" 
+                      data-month="<%= date.month %>" 
                       data-day="<%= date.day %>" 
                       <%= isChecked ? 'checked' : '' %> 
                     >

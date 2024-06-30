@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
             var month = checkbox.getAttribute('data-month');
             var day = checkbox.getAttribute('data-day');
             console.log(event.target.checked)
+            console.log(month,day)
             postToDBForTaskTracking(taskName,event.target.checked, month+day)
           } else {
             console.error('Task name div not found.');

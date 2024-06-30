@@ -106,26 +106,28 @@ function getWeekDates() {
   const today = new Date();
   const dayOfWeek = today.getDay(); // Sunday - Saturday : 0 - 6
   const weekDates = [];
-
+  
   // Calculate the start of the week (Sunday)
   const startOfWeek = new Date(today);
   startOfWeek.setDate(today.getDate() - dayOfWeek);
-
+  
   // Populate the array with dates of the current week
-  for (let i = 1; i <= 7; i++) {
+  for (let i = 0; i < 7; i++) {
     const currentDate = new Date(startOfWeek);
     currentDate.setDate(startOfWeek.getDate() + i);
     weekDates.push({
       day: currentDate.getDate(),
+      month: currentDate.toLocaleDateString("en-US", { month: "long" }),
       weekDay: currentDate.toLocaleDateString("en-US", { weekday: "long" }),
     });
   }
-
+  
   return {
-    month: today.toLocaleString("en-US", { month: "long" }),
+    month: today.toLocaleDateString("en-US", { month: "long" }),
     dates: weekDates,
   };
 }
+
 
 // const getLast7Days = () => {
 //   const days = [];
