@@ -18,12 +18,20 @@ export const getActivityByStatus = async(taskStatus,data)=>{
   else{
     try{
       const result = await taskModel.find({name:data.name})
-      return 
+      return result
     }catch(err){
-
+      throw new Error(err)
     }
   }
   
+}
+export const getActivityId = async(activityName)=>{
+  try{
+    const id=await taskModel.findOne({name:activityName})
+    return id._id
+  }catch(err){
+    throw new Error(err)
+  }
 }
 // // Utility function to get the last 7 days
 // const getLast7Days = () => {
