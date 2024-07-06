@@ -20,6 +20,7 @@ function addTask() {
 
   }
   postToDB(task)
+  inputBox.value = " ";
   //fetchtask()
   // const li = document.createElement("li");
   // li.innerHTML = `
@@ -34,7 +35,7 @@ function addTask() {
   // listContainer.appendChild(li);
 
   // // clear the input field
-  // inputBox.value = " ";
+ 
 
   // // attach event listeners to the new task
   // const checkbox = li.querySelector("input");
@@ -67,6 +68,38 @@ function addTask() {
   // updateCounters();
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+  const checkboxes = document.querySelectorAll('#list-container input[type="checkbox"]');
+  
+  checkboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', function () {
+      handleCheckboxChange(this);
+    });
+  });
+});
+
+function handleCheckboxChange(checkbox) {
+  const taskId = checkbox.getAttribute('data-task-id');
+  if (checkbox.checked) {
+    // Call the function you want to trigger when checkbox is checked
+    postActivityStatus(taskId)
+  } else {
+    // Call the function you want to trigger when checkbox is unchecked
+    onCheckboxUnchecked(taskId);
+  }
+}
+
+function onCheckboxChecked(taskId) {
+  console.log(`Task with ID ${taskId} is checked.`);
+  // Add your logic here
+}
+
+function onCheckboxUnchecked(taskId) {
+  console.log(`Task with ID ${taskId} is unchecked.`);
+  // Add your logic here
+}
+
+
 // add task when pressing Enter key
 inputBox.addEventListener("keyup", function (event) {
   if (event.key === "Enter") {
@@ -84,5 +117,18 @@ function postToDB(taskName){
         'Content-Type': 'application/json',
     },
     body: JSON.stringify(task) // Convert the data object to a JSON string
+})
+}
+
+function postActivityStatus(taskID){
+  const taskId = {
+    taskId: taskID
+  }
+  fetch("http://localhost:3000/tracker/toggleActivityStatus", {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(taskId) // Convert the data object to a JSON string
 })
 }

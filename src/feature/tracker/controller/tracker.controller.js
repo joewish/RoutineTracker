@@ -2,6 +2,7 @@ import {
   registerNewTask,
   getActivityByStatus,
   getActivityId,
+  toggleActivity,
 } from "../model/tracker.repository.js";
 import {
   addWorkDone,
@@ -11,7 +12,6 @@ import {
 export const createNewTask = async (req, res, next) => {
   try {
     const isTaskCreated = await registerNewTask(req.body);
-    res.status(200).send({ message: isTaskCreated });
   } catch (err) {
     if (err.code === 11000) {
       res.status(500).send({ message: "habbit already exists" });
@@ -93,6 +93,17 @@ export const activitycreator = async (req, res, next) => {
     res.render("error", { error: err.message });
   }
 };
+
+
+export const toggleActivityStatus = async (req, res,next) => {
+  try{
+    const result = await toggleActivity(req.body.taskId)
+  }
+  catch (err) {
+    res.render("error", { error: err.message });
+  }
+
+}
 // Helper function to get the start and end of the week
 const getWeekRange = (date) => {
   const startOfWeek = new Date(date);

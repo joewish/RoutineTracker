@@ -32,10 +32,10 @@
       <h2>Task List</h2>
         <ul id="list-container">
           <% if (tasks) { %>
-            <% tasks.forEach((task) => { %>
+            <% tasks.forEach((task,index) => { %>
               <li>
                 <label>
-                  <input type="checkbox">
+                  <input type="checkbox" id="checkbox-<%= index %>" data-task-id="<%= task.id %>">
                   <span><%= task.name %></span>
                 </label>
                 <span class="edit-btn">Edit</span>

@@ -1,7 +1,7 @@
 import express from "express";
 
 const router = express.Router();
-import { createNewTask, getActivityIdByName, getPage ,getWeeklyTrackerPage,activitycreator} from "../controller/tracker.controller.js";
+import { createNewTask, getActivityIdByName, getPage ,getWeeklyTrackerPage,activitycreator, toggleActivityStatus} from "../controller/tracker.controller.js";
 // Tracker GET Routes
 
 router.get('/',getPage)
@@ -15,6 +15,6 @@ router.post('/update',)
 
 router.post('/',createNewTask,getPage)
 router.post('/addTaskStatus',activitycreator,getWeeklyTrackerPage)
-
+router.post('/toggleActivityStatus',toggleActivityStatus)
 
 export default router;

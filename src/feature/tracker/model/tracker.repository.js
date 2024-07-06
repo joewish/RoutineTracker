@@ -33,6 +33,25 @@ export const getActivityId = async(activityName)=>{
     throw new Error(err)
   }
 }
+
+export const toggleActivity = async(activityId) => {
+  try {
+    const activity = await taskModel.findOneAndUpdate(
+      { _id: new mongoose.Types.ObjectId(activityId) },
+      { status: "done" },
+      { new: true }
+    );
+
+    if (activity) {
+      console.log("Activity updated:", activity);
+    } else {
+      console.log("No activity found with the given ID.");
+    }
+  } catch (err) {
+    console.error("Error updating activity status:", err.message);
+  }
+};
+
 // // Utility function to get the last 7 days
 // const getLast7Days = () => {
 //   const days = [];
