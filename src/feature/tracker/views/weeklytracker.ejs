@@ -11,14 +11,14 @@
     <h1>
         RoutineTracker
     </h1>
-    <% if(tasks) { %>
+    <% if (tasks) { %>
       <div class="container text-center" id="task-container">
         <% tasks.forEach((task) => { %>
           <div class="row">
             <div class="col-4">
               <%= task.name %>
             </div>
-            <% if(weekData) { %>
+            <% if (weekData) { %>
               <% weekData.dates.forEach((date) => { %>
                 <div class="col">
                   <%= date.month + " " + date.day %>
@@ -30,7 +30,6 @@
                         entry.activityDetails.forEach(detail => {
                           taskName=detail.activityName;
                         });
-                        console.log(date.day)
                         return entryDate.getDate() === date.day &&
                         entryDate.getMonth() === new Date(`${date.month} 1`).getMonth() && taskName===task.name
                       });
@@ -52,7 +51,7 @@
           </div>
         <% }) %>
       </div>
-    <% } %>
+    <% } %>    
     <!-- <div class="container text-center">
         <div class="row">
             <div class="col-4">

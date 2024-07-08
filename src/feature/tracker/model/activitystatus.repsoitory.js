@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { mongo } from "mongoose";
 import { workSchema } from "./workdone.schema.js";
 
 export const workDoneModel = mongoose.model("workdone", workSchema);
@@ -10,9 +10,9 @@ export const addWorkDone = async (Id, data) => {
     const currentYear = new Date().getFullYear();
     const [month, day] = dayMonth.match(/([A-Za-z]+)(\d+)/).slice(1, 3);
     const monthIndex = new Date(`${month} 1`).getMonth(); // get month index
-    const date = new Date(currentYear, monthIndex, parseInt(day)+1);
+    const date = new Date(currentYear, monthIndex, parseInt(day)+1); 
     const workdone = new workDoneModel({
-      activityDetails: [{ activityId: Id, activityName: name }],
+      activityDetails: [{ activitiyId: new mongoose.Types.ObjectId(Id), activityName: name }],
       MonthandDay: date,
     });
     const savedWorkdone = await workdone.save();
@@ -62,6 +62,7 @@ export const workDoneData = async (startOfWeek, endOfWeek) => {
         },
       })
       .lean();
+    console.log(data);
     return data;
   } catch (e) {
     throw new Error(e);

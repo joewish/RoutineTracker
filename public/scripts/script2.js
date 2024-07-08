@@ -39,7 +39,7 @@ function postToDBForTaskTracking(taskName,taskStatus,monthDay){
       status: taskStatus,
       dayMonth: monthDay
     }
-    fetch("http://localhost:3000/tracker/addTaskStatus", {
+    fetch("http://localhost:3600/tracker/addTaskStatus", {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',

@@ -30,9 +30,17 @@
 
       <!-- task list -->
       <h2>Task List</h2>
-        <ul id="list-container">
-          <% if (tasks) { %>
-            <% tasks.forEach((task,index) => { %>
+      <ul id="list-container">
+        <% 
+          let completedCount = 0;
+          let uncompletedCount = 0;
+          
+          if (tasks) { 
+        %>
+          <% tasks.forEach((task, index) => { %>
+            <% if(task.status !='done'){ 
+                uncompletedCount++;
+            %>
               <li>
                 <label>
                   <input type="checkbox" id="checkbox-<%= index %>" data-task-id="<%= task.id %>">
@@ -41,24 +49,28 @@
                 <span class="edit-btn">Edit</span>
                 <span class="delete-btn">Delete</span>
               </li>
-            <% }) %>
-          <% } else {%>
-            <li>
-              <span>there are no task! please add some Task</span>
-            </li>
+            <% } else { 
+                completedCount++;
+            %>
+              <hr>
+              <ul>
+                <li class="completed"><%= task.name %></li>
+              </ul>
             <% } %>
-        </ul>
-      <hr>
-
-      <!-- task list counter  -->
-      <div class="counter-container">
-        <div id="task-counters">
-          Completed: <span id="completed-counter">0</span> | Uncompleted:
-          <span id="uncompleted-counter">0</span>
+          <% }) %>
+        <% } else { %>
+          <li>
+            <span>There are no tasks! Please add some tasks.</span>
+          </li>
+        <% } %>
+        <div class="counter-container">
+          <div id="task-counters">
+            Completed: <span id="completed-counter"><%= completedCount %></span> | Uncompleted:
+            <span id="uncompleted-counter"><%= uncompletedCount %></span>
+          </div>
         </div>
-      </div>
+      </ul>
     </div>
-
     <script type="text/javascript" src="scripts/scripts.js"></script>
   </body>
 </html>

@@ -111,7 +111,7 @@ function postToDB(taskName){
   const task = {
     name: taskName
   }
-  fetch("http://localhost:3000/tracker", {
+  fetch("http://localhost:3600/tracker", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
@@ -124,7 +124,7 @@ function postActivityStatus(taskID){
   const taskId = {
     taskId: taskID
   }
-  fetch("http://localhost:3000/tracker/toggleActivityStatus", {
+  fetch("http://localhost:3600/tracker/toggleActivityStatus", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',

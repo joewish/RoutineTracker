@@ -6,7 +6,7 @@ export const registerNewTask = async(data)=>{
   const tasks = new taskModel(data)
     return await tasks.save();
 }
-export const getActivityByStatus = async(taskStatus,data)=>{
+export const getActivityByStatus = async(taskStatus,activityName)=>{
   if(taskStatus==""){
     try{
       const result  = await taskModel.find({})

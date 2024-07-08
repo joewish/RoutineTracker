@@ -28,7 +28,7 @@ export const getPage = async (req, res, next) => {
       .status(200)
       .render("template", { tasks: await getActivityByStatus("", req.data) });
   } catch (err) {
-    res.render("error");
+    // res.render("error");
   }
 };
 export const getAllActivities = async (req, res, next) => {
@@ -36,7 +36,7 @@ export const getAllActivities = async (req, res, next) => {
     const result = await getActivityByStatus(tasks, req.data);
     return result;
   } catch (err) {
-    return err.message;
+    //return err.message;
   }
 };
 export const getWeeklyTrackerPage = async (req, res, next) => {
@@ -50,10 +50,10 @@ export const getWeeklyTrackerPage = async (req, res, next) => {
     // Assuming the week starts from Monday
     const { startOfWeek, endOfWeek } = getWeekRange(new Date()); // You need to implement getWeekRange function
     const weeks = getWeekDates()
-    res.render("weeklytracker", { tasks:await getActivityByStatus("",req.data),weekData:weeks,workDoneEntries:await workDoneData(startOfWeek,endOfWeek) });
+    res.render("weeklytracker", { tasks:await getActivityByStatus("",req.data),weekData:weeks,workDoneEntries:await workDoneData(startOfWeek,endOfWeek)});
   } catch (e) {
     console.error("Error fetching work done entries:", e);
-    res.status(500).send("Internal Server Error");
+    //res.status(500).send("Internal Server Error");
   }
 };
 
@@ -66,13 +66,15 @@ export const getActivityIdByName = async (req) => {
       return "activity not found";
     }
   } catch (err) {
-    res.render("error");
+    // res.render("error");
   }
 };
 
 export const activitycreator = async (req, res, next) => {
+  console.log("req came")
   try {
     const resultID = await getActivityId(req.body.name);
+    console.log(resultID) 
     if (resultID) {
       if (req.body.status) {
         const newStatusEntry = await addWorkDone(resultID, req.body);
@@ -87,10 +89,10 @@ export const activitycreator = async (req, res, next) => {
       }
     } else {
       console.log("err");
-      res.render("template", { activitNotFoundErr: "Activity Not Found" });
+      //res.render("template", { activitNotFoundErr: "Activity Not Found" });
     }
   } catch (err) {
-    res.render("error", { error: err.message });
+    //res.render("error", { error: err.message });
   }
 };
 
@@ -107,9 +109,10 @@ export const toggleActivityStatus = async (req, res,next) => {
 // Helper function to get the start and end of the week
 const getWeekRange = (date) => {
   const startOfWeek = new Date(date);
-  startOfWeek.setDate(date.getDate() - date.getDay() + 1); // Monday
+  // console.log(new Date(startOfWeek.setDate(date.getDate() - date.getDay()))) 
+  startOfWeek.setDate(date.getDate() - date.getDay()); // Monday
   const endOfWeek = new Date(startOfWeek);
-  endOfWeek.setDate(startOfWeek.getDate() + 6); // Sunday
+  endOfWeek.setDate(startOfWeek.getDate() + 4); // Sunday
   return { startOfWeek, endOfWeek };
 };
 
