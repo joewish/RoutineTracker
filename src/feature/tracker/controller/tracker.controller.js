@@ -23,6 +23,7 @@ export const createNewTask = async (req, res, next) => {
 };
 
 export const getPage = async (req, res, next) => {
+  console.log("inside of page")
   try {
     await res
       .status(200)
