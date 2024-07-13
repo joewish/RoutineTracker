@@ -112,7 +112,7 @@ function postToDB(taskName){
   const task = {
     name: taskName
   }
-  fetch("http://localhost:3600/tracker", {
+  fetch("https://routinetracker-cajx.onrender.com/tracker", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
@@ -125,7 +125,7 @@ function postActivityStatus(taskID){
   const taskId = {
     taskId: taskID
   }
-  fetch("http://localhost:3600/tracker/toggleActivityStatus", {
+  fetch("https://routinetracker-cajx.onrender.com/tracker/toggleActivityStatus", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
