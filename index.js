@@ -18,9 +18,6 @@ app.use("/tracker",express.static(path.join('public')));
 app.set("view engine", "ejs");
 app.set("views", path.resolve("src","feature","tracker", "views"));
 // configure routes
-app.use("/",(req, res) => {
-    res.status(201).send("site is working")
-})
 app.use("/tracker",router);
 
 export default app;
