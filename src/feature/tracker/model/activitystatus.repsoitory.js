@@ -24,7 +24,6 @@ export const addWorkDone = async (Id, data) => {
 };
 
 export const deleteWordDoneEntry = async (ID, dayMonth) => {
-  console.log("inside");
   try {
     const currentYear = new Date().getFullYear();
     const [month, day] = dayMonth.match(/([A-Za-z]+)(\d+)/).slice(1, 3);
@@ -44,7 +43,6 @@ export const deleteWordDoneEntry = async (ID, dayMonth) => {
       MonthandDay: date,
       activityDetails: { $size: 0 },
     });
-    console.log(result)
     return result;
   } catch (e) {
     console.log(e);
@@ -53,6 +51,7 @@ export const deleteWordDoneEntry = async (ID, dayMonth) => {
 };
 
 export const workDoneData = async (startOfWeek, endOfWeek) => {
+  // console.log("date range",startOfWeek,endOfWeek)
   try {
     const data = await workDoneModel
       .find({
@@ -62,7 +61,6 @@ export const workDoneData = async (startOfWeek, endOfWeek) => {
         },
       })
       .lean();
-    console.log(data);
     return data;
   } catch (e) {
     throw new Error(e);

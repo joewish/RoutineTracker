@@ -9,8 +9,9 @@
 </head>
 <body>
     <h1>
-        RoutineTracker
+        Weekly Tracker
     </h1>
+    <a href="/tracker"><h1>RoutineTracker</h1></a>
     <% if (tasks) { %>
       <div class="container text-center" id="task-container">
         <% tasks.forEach((task) => { %>
@@ -26,11 +27,12 @@
                     <% 
                       const isChecked = workDoneEntries.some(entry => {
                         const entryDate = new Date(entry.MonthandDay);
+                        const newDate = entryDate.getDate()-1
                         let taskName = ""
                         entry.activityDetails.forEach(detail => {
                           taskName=detail.activityName;
                         });
-                        return entryDate.getDate() === date.day &&
+                        return newDate === date.day &&
                         entryDate.getMonth() === new Date(`${date.month} 1`).getMonth() && taskName===task.name
                       });
                     %>

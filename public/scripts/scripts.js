@@ -21,6 +21,7 @@ function addTask() {
   }
   postToDB(task)
   inputBox.value = " ";
+  location.reload()
   //fetchtask()
   // const li = document.createElement("li");
   // li.innerHTML = `
@@ -131,4 +132,5 @@ function postActivityStatus(taskID){
     },
     body: JSON.stringify(taskId) // Convert the data object to a JSON string
 })
+location.reload()
 }

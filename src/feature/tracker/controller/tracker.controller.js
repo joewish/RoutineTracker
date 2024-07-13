@@ -40,17 +40,11 @@ export const getAllActivities = async (req, res, next) => {
   }
 };
 export const getWeeklyTrackerPage = async (req, res, next) => {
-  // try{
-  //   const weeks = getWeekDates()
-  //   res.render("weeklytracker",{tasks:await getActivityByStatus("",req.data),weekData:weeks})
-  // }catch(err){
-  //   res.render("error")
-  // }
   try {
     // Assuming the week starts from Monday
     const { startOfWeek, endOfWeek } = getWeekRange(new Date()); // You need to implement getWeekRange function
     const weeks = getWeekDates()
-    res.render("weeklytracker", { tasks:await getActivityByStatus("",req.data),weekData:weeks,workDoneEntries:await workDoneData(startOfWeek,endOfWeek)});
+    res.render("weeklytracker", { tasks:await getActivityByStatus("None",req.data),weekData:weeks,workDoneEntries:await workDoneData(startOfWeek,endOfWeek)});
   } catch (e) {
     console.error("Error fetching work done entries:", e);
     //res.status(500).send("Internal Server Error");
@@ -71,10 +65,8 @@ export const getActivityIdByName = async (req) => {
 };
 
 export const activitycreator = async (req, res, next) => {
-  console.log("req came")
   try {
     const resultID = await getActivityId(req.body.name);
-    console.log(resultID) 
     if (resultID) {
       if (req.body.status) {
         const newStatusEntry = await addWorkDone(resultID, req.body);
@@ -109,10 +101,9 @@ export const toggleActivityStatus = async (req, res,next) => {
 // Helper function to get the start and end of the week
 const getWeekRange = (date) => {
   const startOfWeek = new Date(date);
-  // console.log(new Date(startOfWeek.setDate(date.getDate() - date.getDay()))) 
-  startOfWeek.setDate(date.getDate() - date.getDay()); // Monday
+  startOfWeek.setDate(date.getDate() - date.getDay()); // Sunday
   const endOfWeek = new Date(startOfWeek);
-  endOfWeek.setDate(startOfWeek.getDate() + 4); // Sunday
+  endOfWeek.setDate(startOfWeek.getDate() + 6); // satrday
   return { startOfWeek, endOfWeek };
 };
 

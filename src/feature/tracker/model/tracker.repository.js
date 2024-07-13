@@ -15,6 +15,14 @@ export const getActivityByStatus = async(taskStatus,activityName)=>{
       return err
     }
   }
+  else if(taskStatus.length>2){
+    try{
+      const result  = await taskModel.find({status:taskStatus})
+      return result
+    }catch(err){
+      return err
+    }
+  }
   else{
     try{
       const result = await taskModel.find({name:data.name})
