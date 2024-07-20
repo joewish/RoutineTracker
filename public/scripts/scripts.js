@@ -22,51 +22,6 @@ function addTask() {
   postToDB(task)
   inputBox.value = " ";
   location.reload()
-  //fetchtask()
-  // const li = document.createElement("li");
-  // li.innerHTML = `
-  //   <label>
-  //     <input type="checkbox">
-  //     <span>${task}</span>
-  //   </label>
-  //   <span class="edit-btn">Edit</span>
-  //   <span class="delete-btn">Delete</span>
-  //   `;
-
-  // listContainer.appendChild(li);
-
-  // // clear the input field
- 
-
-  // // attach event listeners to the new task
-  // const checkbox = li.querySelector("input");
-  // const editBtn = li.querySelector(".edit-btn");
-  // const taskSpan = li.querySelector("span");
-  // const deleteBtn = li.querySelector(".delete-btn");
-
-  // // strike out the completed task
-  // checkbox.addEventListener("click", function () {
-  //   li.classList.toggle("completed", checkbox.checked);
-  //   updateCounters();
-  // });
-
-  // editBtn.addEventListener("click", function () {
-  //   const update = prompt("Edit task:", taskSpan.textContent);
-  //   if (update !== null) {
-  //     taskSpan.textContent = update;
-  //     li.classList.remove("completed");
-  //     checkbox.checked = false;
-  //     updateCounters();
-  //   }
-  // });
-
-  // deleteBtn.addEventListener("click", function () {
-  //   if (confirm("Are you sure you want to delete this task?")) {
-  //     li.remove();
-  //     updateCounters();
-  //   }
-  // });
-  // updateCounters();
 }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -97,7 +52,6 @@ function onCheckboxChecked(taskId) {
 
 function onCheckboxUnchecked(taskId) {
   console.log(`Task with ID ${taskId} is unchecked.`);
-  // Add your logic here
 }
 
 
@@ -126,7 +80,7 @@ function postToDB(taskName) {
   })))
   .then(({ status, body }) => {
     if (status === 200) {
-      alert(`${body.body} task has been created`); // Display success message
+      alert(body.body); // Display success message
       window.location.reload(); // Reload the page
     }
     return { status, body }; // Return the response data
