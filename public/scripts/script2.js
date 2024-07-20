@@ -1,3 +1,4 @@
+const url = "https://routinetracker-cajx.onrender.com/tracker"
 // Wait for the DOM to fully load
 document.addEventListener('DOMContentLoaded', function () {
   // Add an event listener to the parent container
@@ -39,7 +40,7 @@ function postToDBForTaskTracking(taskName,taskStatus,monthDay){
       status: taskStatus,
       dayMonth: monthDay
     }
-    fetch("http://localhost:3600/tracker/addTaskStatus", {
+    fetch(url+"/addTaskStatus", {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',

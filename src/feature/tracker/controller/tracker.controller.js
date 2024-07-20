@@ -10,8 +10,13 @@ import {
   workDoneData
 } from "../model/activitystatus.repsoitory.js";
 export const createNewTask = async (req, res, next) => {
+  console.log("inside of page")
   try {
     const isTaskCreated = await registerNewTask(req.body);
+    if(isTaskCreated){
+      res.status(200).send({body:"Task created successfully"})
+      return
+    }
   } catch (err) {
     if (err.code === 11000) {
       res.status(500).send({ message: "habbit already exists" });
@@ -23,7 +28,6 @@ export const createNewTask = async (req, res, next) => {
 };
 
 export const getPage = async (req, res, next) => {
-  console.log("inside of page")
   try {
     await res
       .status(200)

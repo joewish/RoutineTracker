@@ -2,7 +2,7 @@ const inputBox = document.getElementById("input-box");
 const listContainer = document.getElementById("list-container");
 const completedCounter = document.getElementById("completed-counter");
 const uncompletedCounter = document.getElementById("uncompleted-counter");
-
+const url = "https://routinetracker-cajx.onrender.com/tracker"
 function updateCounters() {
   const completedTasks = document.querySelectorAll(".completed").length;
   const uncompletedTasks = document.querySelectorAll("li:not(.completed)").length;
@@ -108,24 +108,41 @@ inputBox.addEventListener("keyup", function (event) {
   }
 });
 
-function postToDB(taskName){
+function postToDB(taskName) {
   const task = {
     name: taskName
-  }
-  fetch("https://routinetracker-cajx.onrender.com/tracker", {
+  };
+
+  return fetch(url, {
     method: 'POST',
     headers: {
-        'Content-Type': 'application/json',
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify(task) // Convert the data object to a JSON string
-})
+  })
+  .then(response => response.json().then(data => ({
+    status: response.status,
+    body: data
+  })))
+  .then(({ status, body }) => {
+    if (status === 200) {
+      alert(`${body.body} task has been created`); // Display success message
+      window.location.reload(); // Reload the page
+    }
+    return { status, body }; // Return the response data
+  })
+  .catch(error => {
+    alert(error.message); // Display error message
+    throw error; // Rethrow the error to be handled by the caller
+  });
 }
+
 
 function postActivityStatus(taskID){
   const taskId = {
     taskId: taskID
   }
-  fetch("https://routinetracker-cajx.onrender.com/tracker/toggleActivityStatus", {
+  fetch(url+"/toggleActivityStatus", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
